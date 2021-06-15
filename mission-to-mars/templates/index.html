@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!-- Import bootstrap via CDN -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <title>MARS Mission</title>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-sm navbar-light"
+      style="background-color:aliceblue"
+    >
+      <a class="navbar-brand">MARS Mission: Dashboard</a>
+      <button
+        class="navbar-toggler"
+        data-toggle="collapse"
+        data-target="#collapsibleNavBar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavBar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="http://127.0.0.1:5000/scraper"
+              >Scrape New Data
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row align-items-start">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                MARS Latest News:
+                <h2>{{ mars_complete_data.title }}</h2>
+                <p>{{ mars_complete_data.news }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row align-items-start">
+          <div class="col-sm-6">
+            <h2>MARS Hemispheres</h2>
+            <div class="row row-cols-1 row-cols-sm-2 g-0">
+              {% for hemiData in mars_hemi_data %}
+              <div class="col">
+                <div class="card">
+                  <img src="{{ hemiData.img_url }}" class="card-img-top" />
+                  <div class="card-body">
+                    <div class="card-text">{{ hemiData.title }}</div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <h2>Featured image</h2>
+            <img
+              src="{{ mars_complete_data.image_url }}"
+              class="img-fluid"
+              alt="Mars featured image"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <table class="table table-striped">
+              {{
+                mars_complete_data.facts_table | safe
+              }}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
